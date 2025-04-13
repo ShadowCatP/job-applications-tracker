@@ -85,12 +85,28 @@ export default function EditJobPage() {
             </option>
           ))}
         </select>
-        <button
-          type="submit"
-          className="w-full rounded bg-green-600 px-4 py-2 text-white"
-        >
-          Save Changes
-        </button>
+        <div className="flex items-center gap-4">
+          <button
+            type="submit"
+            className="w-full rounded bg-green-600 px-4 py-2 text-white"
+          >
+            Save Changes
+          </button>
+          <button
+            onClick={async () => {
+              if (!confirm("Delete this job?")) return;
+              try {
+                await api.delete(`/jobs/${id}`);
+                router.push("/");
+              } catch {
+                alert("Failed to delete job");
+              }
+            }}
+            className="w-full rounded bg-red-600 px-4 py-2 text-white"
+          >
+            Delete Job
+          </button>
+        </div>
       </form>
     </div>
   );

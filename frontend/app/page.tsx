@@ -83,6 +83,21 @@ export default function Home() {
                   >
                     Edit
                   </Link>
+                  <button
+                    onClick={async () => {
+                      if (!confirm("Are you sure you want to delete this job?"))
+                        return;
+                      try {
+                        await api.delete(`/jobs/${job._id}`);
+                        setJobs(jobs.filter((j) => j._id !== job._id));
+                      } catch {
+                        alert("Failed to delete job");
+                      }
+                    }}
+                    className="text-red-600 underline"
+                  >
+                    Delete
+                  </button>
                 </div>
               </li>
             ))}
