@@ -46,6 +46,6 @@ exports.deleteJob = async (req, res) => {
   if (job.user.toString() !== req.user.id)
     return res.status(403).json({ msg: "Not authorized" });
 
-  await job.remove();
+  await job.deleteOne({ id });
   res.json({ msg: "Job deleted" });
 };
