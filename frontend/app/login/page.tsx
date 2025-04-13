@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { api } from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 interface LoginForm {
   email: string;
@@ -11,6 +12,7 @@ interface LoginForm {
 }
 
 export default function Login() {
+  const [error, setError] = useState<string | null>(null);
   const { register, handleSubmit } = useForm<LoginForm>();
   const auth = useAuth();
   const router = useRouter();
@@ -21,13 +23,20 @@ export default function Login() {
       auth?.login(res.data.token);
       router.push("/");
     } catch (err: any) {
-      alert(err.response.data.msg || "Registration Failed");
+      setError(err.response.data.msg || "Registration Failed");
     }
   };
 
   return (
     <div className="mx-auto mt-20 max-w-md rounded border p-6 shadow">
       <h1 className="mb-4 text-2xl font-bold">Login</h1>
+
+      {error && (
+        <div className="mb-4 rounded bg-red-100 px-4 py-2 text-red-700">
+          {error}
+        </div>
+      )}
+
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <input
           {...register("email")}
