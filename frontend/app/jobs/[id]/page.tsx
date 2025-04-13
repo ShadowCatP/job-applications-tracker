@@ -4,7 +4,7 @@ import { useAuth } from "@/context/AuthContext";
 import { JobForm, statusOptions, jobTypeOptions } from "@/types/JobForm";
 import { useRouter, useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import { api } from "@/lib/api";
 
 export default function EditJobPage() {
@@ -12,7 +12,14 @@ export default function EditJobPage() {
   const { id } = useParams();
   const auth = useAuth();
   const [loading, setLoading] = useState(true);
-  const { register, handleSubmit, reset } = useForm<JobForm>();
+  const { register, handleSubmit, reset, control } = useForm<JobForm>({
+    defaultValues: { interviewDates: [{ date: "" }] },
+  });
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "interviewDates",
+  });
 
   useEffect(() => {
     if (!auth?.token) {
@@ -21,19 +28,21 @@ export default function EditJobPage() {
   }, [auth?.token]);
 
   useEffect(() => {
-    console.log("0");
-    console.log(id);
-    console.log(Array.isArray(id));
     if (!id || Array.isArray(id)) return;
-    console.log("1");
 
     const fetchJob = async () => {
       try {
         const res = await api.get(`/jobs`);
-        console.log(res);
         const job = res.data.find((j: any) => j._id === id);
-        console.log(job);
         if (!job) return router.push("/");
+
+        // Convert dates to YYYY-MM-DD format
+        job.dateApplied = job.dateApplied?.slice(0, 10);
+        job.interviewDates =
+          job.interviewDates?.map((d: { date: string }) => ({
+            date: d.date.slice(0, 10),
+          })) || [];
+
         reset(job);
       } catch (err) {
         alert("Could not load job");
@@ -66,11 +75,13 @@ export default function EditJobPage() {
           placeholder="Company"
           className="w-full rounded border p-2"
         />
+
         <input
           {...register("position", { required: true })}
           placeholder="Position"
           className="w-full rounded border p-2"
         />
+
         <select {...register("status")} className="w-full rounded border p-2">
           {statusOptions.map((status) => (
             <option key={status} value={status}>
@@ -78,6 +89,7 @@ export default function EditJobPage() {
             </option>
           ))}
         </select>
+
         <select {...register("jobType")} className="w-full rounded border p-2">
           {jobTypeOptions.map((type) => (
             <option key={type} value={type}>
@@ -85,6 +97,47 @@ export default function EditJobPage() {
             </option>
           ))}
         </select>
+
+        <input
+          type="date"
+          {...register("dateApplied")}
+          className="w-full rounded border p-2"
+        />
+
+        <div className="space-y-2">
+          <label className="block font-medium">Interview Dates:</label>
+          {fields.map((field, index) => (
+            <div key={field.id} className="flex gap-2">
+              <input
+                type="date"
+                {...register(`interviewDates.${index}.date`)}
+                className="w-full rounded border p-2"
+              />
+              <button
+                type="button"
+                onClick={() => remove(index)}
+                className="text-red-600"
+              >
+                Remove
+              </button>
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={() => append({ date: "" })}
+            className="text-blue-600 underline"
+          >
+            + Add another date
+          </button>
+        </div>
+
+        <textarea
+          {...register("notes")}
+          placeholder="Notes (e.g. recruiter name, feedback, etc.)"
+          className="w-full rounded border p-2"
+          rows={3}
+        />
+
         <div className="flex items-center gap-4">
           <button
             type="submit"

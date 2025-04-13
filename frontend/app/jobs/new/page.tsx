@@ -1,6 +1,6 @@
 "use client";
 
-import { useForm } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { api } from "@/lib/api";
@@ -8,7 +8,16 @@ import { useEffect } from "react";
 import { JobForm, statusOptions, jobTypeOptions } from "@/types/JobForm";
 
 export default function NewJobPage() {
-  const { register, handleSubmit } = useForm<JobForm>();
+  const { register, handleSubmit, control } = useForm<JobForm>({
+    defaultValues: {
+      interviewDates: [{ date: "" }],
+    },
+  });
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "interviewDates",
+  });
+
   const auth = useAuth();
   const router = useRouter();
 
@@ -20,6 +29,7 @@ export default function NewJobPage() {
 
   const onSubmit = async (data: JobForm) => {
     try {
+      console.log(data);
       await api.post("/jobs", data);
       router.push("/");
     } catch (err: any) {
@@ -36,11 +46,13 @@ export default function NewJobPage() {
           placeholder="Company"
           className="w-full rounded border p-2"
         />
+
         <input
           {...register("position", { required: true })}
           placeholder="Position"
           className="w-full rounded border p-2"
         />
+
         <select {...register("status")} className="w-full rounded border p-2">
           {statusOptions.map((status) => (
             <option key={status} value={status}>
@@ -48,6 +60,7 @@ export default function NewJobPage() {
             </option>
           ))}
         </select>
+
         <select {...register("jobType")} className="w-full rounded border p-2">
           {jobTypeOptions.map((type) => (
             <option key={type} value={type}>
@@ -55,6 +68,47 @@ export default function NewJobPage() {
             </option>
           ))}
         </select>
+
+        <input
+          {...register("dateApplied")}
+          type="date"
+          className="w-full rounded border p-2"
+        />
+
+        <div className="space-y-2">
+          <label className="block font-medium">Interview Dates:</label>
+          {fields.map((field, index) => (
+            <div key={field.id} className="flex gap-2">
+              <input
+                type="date"
+                {...register(`interviewDates.${index}.date`)}
+                className="w-full rounded border p-2"
+              />
+              <button
+                type="button"
+                onClick={() => remove(index)}
+                className="text-red-600"
+              >
+                Remove
+              </button>
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={() => append({ date: "" })}
+            className="text-blue-600 underline"
+          >
+            + Add another date
+          </button>
+        </div>
+
+        <textarea
+          {...register("notes")}
+          placeholder="Notes (e.g. recruiter name, feedback, etc.)"
+          className="w-full rounded border p-2"
+          rows={3}
+        />
+
         <button
           type="submit"
           className="w-full rounded bg-blue-600 px-4 py-2 text-white"

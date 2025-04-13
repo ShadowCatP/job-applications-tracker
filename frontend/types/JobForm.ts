@@ -14,4 +14,7 @@ export interface JobForm {
   position: string;
   status: Status;
   jobType: JobType;
+  dateApplied?: string;
+  interviewDates?: { date: string }[];
+  notes?: string;
 }

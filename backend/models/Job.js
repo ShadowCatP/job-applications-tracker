@@ -13,6 +13,9 @@ const JobSchema = new mongoose.Schema(
       type: String,
       enum: ["full-time", "part-time", "internship"],
     },
+    dateApplied: { type: Date },
+    interviewDates: [{ date: { type: Date } }],
+    notes: { type: String },
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   },
   { timestamps: true }

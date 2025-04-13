@@ -6,10 +6,18 @@ exports.getAllJobs = async (req, res) => {
 };
 
 exports.createJob = async (req, res) => {
-  const { company, position, status, jobType } = req.body;
+  const {
+    company,
+    position,
+    status,
+    jobType,
+    dateApplied,
+    interviewDates,
+    notes,
+  } = req.body;
 
   if (!company || !position)
-    return req
+    return res
       .status(400)
       .json({ msg: "Company and Position must be specified" });
 
@@ -18,6 +26,13 @@ exports.createJob = async (req, res) => {
     position,
     status,
     jobType,
+    dateApplied: dateApplied ? new Date(dateApplied) : undefined,
+    interviewDates: Array.isArray(interviewDates)
+      ? interviewDates.map((d) => ({
+          date: d?.date ? new Date(d.date) : null,
+        }))
+      : [],
+    notes,
     user: req.user.id,
   });
 
