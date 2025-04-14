@@ -31,7 +31,7 @@ export default function Home() {
     }
   }, [auth?.token]);
 
-  if (!auth?.token) {
+  if (!auth?.loading && !auth?.token) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center px-4 text-center">
         <h1 className="mb-6 text-4xl font-bold">Welcome to Job Tracker</h1>

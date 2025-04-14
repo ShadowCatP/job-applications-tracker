@@ -9,12 +9,13 @@ export const jobTypeOptions = ["full-time", "part-time", "internship"] as const;
 type Status = (typeof statusOptions)[number];
 type JobType = (typeof jobTypeOptions)[number];
 
-export interface JobForm {
+export interface Job {
+  _id: string;
   company: string;
   position: string;
   status: Status;
   jobType: JobType;
-  dateApplied?: string;
-  interviewDates?: { date: string }[];
+  dateApplied?: Date;
+  interviewDates?: { date: Date }[];
   notes?: string;
 }
