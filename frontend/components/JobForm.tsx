@@ -15,6 +15,7 @@ import {
 import { DatePicker } from "./ui/date-picker";
 import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
+import { toInputDateString } from "@/lib/utils";
 
 interface JobFormProps {
   job?: Job;
@@ -33,11 +34,9 @@ export const JobForm = ({ job }: JobFormProps) => {
           position: job.position,
           status: job.status,
           jobType: job.jobType,
-          dateApplied: job.dateApplied
-            ? job.dateApplied.toISOString().split("T")[0]
-            : undefined,
+          dateApplied: toInputDateString(job.dateApplied),
           interviewDates: job.interviewDates?.map((d) => ({
-            date: d.date.toISOString().split("T")[0],
+            date: toInputDateString(d.date),
           })),
           notes: job.notes,
         }
@@ -51,7 +50,7 @@ export const JobForm = ({ job }: JobFormProps) => {
 
   const onSubmit = async (data: JobFormValues) => {
     if (job) {
-      await api.put(`/jobs/${job._id}`, { ...data, _id: job._id });
+      await api.put(`/jobs/${job._id}`, data);
     } else {
       await api.post(`/jobs`, data);
     }

@@ -13,3 +13,7 @@ export const parseJobDates = (job: any): Job => ({
     date: new Date(i.date),
   })),
 });
+
+export const toInputDateString = (date?: Date) => {
+  return date ? date.toISOString().split("T")[0] : undefined;
+};
