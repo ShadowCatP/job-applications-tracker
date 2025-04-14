@@ -5,6 +5,16 @@ exports.getAllJobs = async (req, res) => {
   res.json(jobs);
 };
 
+exports.getJobById = async (req, res) => {
+  const { id } = req.params;
+
+  const job = await Job.findOne({ _id: id, user: req.user.id });
+
+  if (!job) return res.status(404).json({ msg: "Job not found" });
+
+  res.json(job);
+};
+
 exports.createJob = async (req, res) => {
   const {
     company,
