@@ -4,6 +4,7 @@ import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
+import { useRouter } from "next/navigation";
 
 interface Job {
   _id: string;
@@ -14,6 +15,7 @@ interface Job {
 
 export default function Home() {
   const auth = useAuth();
+  const router = useRouter();
   const [jobs, setJobs] = useState<Job[]>([]);
 
   useEffect(() => {
@@ -26,33 +28,10 @@ export default function Home() {
       }
     };
 
-    if (auth?.token) {
-      fetchJobs();
-    }
-  }, [auth?.token]);
+    if (auth?.token) fetchJobs();
 
-  if (!auth?.loading && !auth?.token) {
-    return (
-      <div className="flex min-h-screen flex-col items-center justify-center px-4 text-center">
-        <h1 className="mb-6 text-4xl font-bold">Welcome to Job Tracker</h1>
-        <p className="mb-6 text-gray-600">
-          Track your job applications with ease.
-        </p>
-        <div className="space-x-4">
-          <Link href="/login">
-            <button className="rounded bg-green-600 px-4 py-2 text-white">
-              Login
-            </button>
-          </Link>
-          <Link href="/register">
-            <button className="rounded bg-blue-600 px-4 py-2 text-white">
-              Register
-            </button>
-          </Link>
-        </div>
-      </div>
-    );
-  }
+    if (!auth?.token && !auth?.loading) router.push("/login");
+  }, [auth?.token]);
 
   return (
     <div className="mx-auto mt-10 max-w-4xl p-6">
