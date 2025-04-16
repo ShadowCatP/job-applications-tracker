@@ -127,7 +127,7 @@ export const JobForm = ({ job }: JobFormProps) => {
           <div key={f.id} className="flex w-full justify-between">
             <DatePicker
               placeholder="Interview"
-              defaultValue={job ? job.interviewDates?.[i].date : undefined}
+              defaultValue={f.date ? new Date(f.date) : undefined}
               onChange={(date) => {
                 if (date) {
                   setValue(`interviewDates.${i}.date`, date.toISOString());
