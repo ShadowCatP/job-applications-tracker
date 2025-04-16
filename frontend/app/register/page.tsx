@@ -1,10 +1,5 @@
-"use client";
-
-import { useForm } from "react-hook-form";
-import { api } from "@/lib/api";
-import { useAuth } from "@/context/AuthContext";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { RegisterForm } from "@/components/Forms/RegisterForm";
+import Link from "next/link";
 
 interface RegisterForm {
   name: string;
@@ -13,56 +8,18 @@ interface RegisterForm {
 }
 
 export default function Register() {
-  const [error, setError] = useState<string | null>(null);
-  const { register, handleSubmit } = useForm<RegisterForm>();
-  const auth = useAuth();
-  const router = useRouter();
-
-  const onSubmit = async (data: RegisterForm) => {
-    try {
-      const res = await api.post("/auth/register", data);
-      auth?.login(res.data.token);
-      router.push("/");
-    } catch (err: any) {
-      setError(err.response.data.msg || "Registration Failed");
-    }
-  };
-
   return (
-    <div className="mx-auto mt-20 max-w-md rounded border p-6 shadow">
-      <h1 className="mb-4 text-2xl font-bold">Register</h1>
+    <div className="mx-auto mt-20 flex max-w-md flex-col gap-4 rounded border p-6 shadow">
+      <h1 className="text-2xl font-bold">Register</h1>
 
-      {error && (
-        <div className="mb-4 rounded bg-red-100 px-4 py-2 text-red-700">
-          {error}
-        </div>
-      )}
+      <RegisterForm />
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <input
-          {...register("name")}
-          placeholder="Name"
-          className="w-full rounded border p-2"
-        />
-        <input
-          {...register("email")}
-          type="email"
-          placeholder="Email"
-          className="w-full rounded border p-2"
-        />
-        <input
-          {...register("password")}
-          type="password"
-          placeholder="Password"
-          className="w-full rounded border p-2"
-        />
-        <button
-          type="submit"
-          className="w-full rounded bg-blue-600 px-4 py-2 text-white"
-        >
-          Register
-        </button>
-      </form>
+      <span>
+        Already have an account?{" "}
+        <Link href={"/login"} className="text-blue-400 hover:underline">
+          Login
+        </Link>
+      </span>
     </div>
   );
 }
