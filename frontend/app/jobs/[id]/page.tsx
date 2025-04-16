@@ -3,7 +3,7 @@
 import { useAuth } from "@/context/AuthContext";
 import { useRouter, useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { JobForm } from "@/components/JobForm";
+import { JobForm } from "@/components/Forms/JobForm";
 import { Job } from "@/types/Job";
 import { api } from "@/lib/api";
 import { parseJobDates } from "@/lib/utils";

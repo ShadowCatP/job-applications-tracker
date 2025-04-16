@@ -1,6 +1,6 @@
 "use client";
 
-import { Logout } from "./ui/logout";
+import { Logout } from "../ui/logout";
 import { usePathname } from "next/navigation";
 
 export const Header = () => {

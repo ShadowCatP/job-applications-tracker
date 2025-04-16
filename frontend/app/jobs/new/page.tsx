@@ -2,10 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
-import { api } from "@/lib/api";
 import { useEffect } from "react";
-import { Job } from "@/types/Job";
-import { JobForm } from "@/components/JobForm";
+import { JobForm } from "@/components/Forms/JobForm";
 
 export default function NewJobPage() {
   const auth = useAuth();

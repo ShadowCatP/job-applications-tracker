@@ -4,17 +4,17 @@ import { useForm, useFieldArray } from "react-hook-form";
 import { Job, statusOptions, jobTypeOptions } from "@/types/Job";
 import { api } from "@/lib/api";
 import { useRouter } from "next/navigation";
-import { Input } from "./ui/input";
+import { Input } from "../ui/input";
 import {
   Select,
   SelectItem,
   SelectContent,
   SelectValue,
   SelectTrigger,
-} from "./ui/select";
-import { DatePicker } from "./ui/date-picker";
-import { Button } from "./ui/button";
-import { Textarea } from "./ui/textarea";
+} from "../ui/select";
+import { DatePicker } from "../ui/date-picker";
+import { Button } from "../ui/button";
+import { Textarea } from "../ui/textarea";
 import { toInputDateString } from "@/lib/utils";
 
 interface JobFormProps {
