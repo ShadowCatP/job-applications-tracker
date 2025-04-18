@@ -14,7 +14,8 @@ export const parseJobDates = (job: any): Job => ({
   })),
 });
 
-export const toInputDateString = (date?: Date) => {
+export const formatDate = (date?: Date) => {
+  console.log(typeof date);
   return date ? date.toISOString().split("T")[0] : undefined;
 };
 

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { Job } from "@/types/Job";
-import { JobCard } from "@/components/Cards/JobCard";
+import { JobCard } from "@/components/Cards/JobCard/JobCard";
 
 export default function Home() {
   const auth = useAuth();
@@ -39,7 +39,7 @@ export default function Home() {
           </Link>
         </p>
       ) : (
-        <>
+        <div className="flex flex-col gap-6">
           {jobs.map((j) => (
             <JobCard
               key={j._id}
@@ -55,7 +55,7 @@ export default function Home() {
               Add one
             </Link>
           </p>
-        </>
+        </div>
       )}
     </div>
   );

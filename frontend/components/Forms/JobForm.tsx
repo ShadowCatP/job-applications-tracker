@@ -15,7 +15,7 @@ import {
 import { DatePicker } from "../ui/date-picker";
 import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
-import { toInputDateString } from "@/lib/utils";
+import { formatDate } from "@/lib/utils";
 
 interface JobFormProps {
   job?: Job;
@@ -34,9 +34,9 @@ export const JobForm = ({ job }: JobFormProps) => {
           position: job.position,
           status: job.status,
           jobType: job.jobType,
-          dateApplied: toInputDateString(job.dateApplied),
+          dateApplied: formatDate(job.dateApplied),
           interviewDates: job.interviewDates?.map((d) => ({
-            date: toInputDateString(d.date),
+            date: formatDate(d.date),
           })),
           notes: job.notes,
         }
