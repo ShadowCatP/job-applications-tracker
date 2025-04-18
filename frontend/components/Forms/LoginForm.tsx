@@ -49,7 +49,10 @@ export const LoginForm = () => {
         placeholder="Password"
       />
 
-      <Button type="submit" className="w-full">
+      <Button
+        type="submit"
+        className="bg-primary-600 hover:bg-primary-500 w-full"
+      >
         Login
       </Button>
     </form>

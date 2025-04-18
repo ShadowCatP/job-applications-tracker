@@ -16,7 +16,7 @@ export default function NewJobPage() {
   }, [auth?.token]);
 
   return (
-    <div className="mx-auto mt-10 max-w-xl rounded border p-6 shadow">
+    <div className="mx-auto mt-10 max-w-xl rounded border bg-white p-6 shadow">
       <h1 className="mb-6 text-2xl font-bold">Add New Job</h1>
       <JobForm />
     </div>

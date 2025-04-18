@@ -52,7 +52,10 @@ export const RegisterForm = () => {
         placeholder="Password"
       />
 
-      <Button type="submit" className="w-full">
+      <Button
+        type="submit"
+        className="bg-primary-600 hover:bg-primary-500 w-full"
+      >
         Register
       </Button>
     </form>

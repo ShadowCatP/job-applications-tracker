@@ -118,7 +118,11 @@ export const JobForm = ({ job }: JobFormProps) => {
       <div className="flex flex-col gap-4">
         <div className="flex w-full justify-between">
           <label>Interview Dates</label>
-          <Button type="button" onClick={() => append({ date: "" })}>
+          <Button
+            type="button"
+            onClick={() => append({ date: "" })}
+            className="bg-primary-600 hover:bg-primary-500"
+          >
             Add another date
           </Button>
         </div>
@@ -150,7 +154,9 @@ export const JobForm = ({ job }: JobFormProps) => {
         placeholder="Notes (e.g. recruiter name, feedback, etc.)"
       />
 
-      <Button type="submit">Submit</Button>
+      <Button type="submit" className="bg-primary-600 hover:primary-500">
+        Submit
+      </Button>
     </form>
   );
 };

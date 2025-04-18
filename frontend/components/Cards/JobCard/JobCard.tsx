@@ -35,7 +35,7 @@ export const JobCard = ({ job, handleDelete }: JobCardProps) => {
     job.dateApplied;
 
   return (
-    <div className="flex flex-col gap-2 rounded border border-black px-6 py-4 shadow-md transition-shadow hover:shadow-lg">
+    <div className="flex flex-col gap-2 rounded border border-black bg-white px-6 py-4 shadow-md transition-shadow hover:shadow-lg">
       <JobCardHeader job={job} handleDelete={handleDelete} />
 
       <StatusBar job={job} className="mt-2" />

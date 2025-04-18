@@ -30,7 +30,7 @@ export default function Login() {
   };
 
   return (
-    <div className="mx-auto mt-20 flex max-w-md flex-col gap-4 rounded border p-6 shadow">
+    <div className="mx-auto mt-20 flex max-w-md flex-col gap-4 rounded border bg-white p-6 shadow">
       <h1 className="text-2xl font-bold">Login</h1>
 
       <LoginForm />

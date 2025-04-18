@@ -35,33 +35,25 @@ export default function Home() {
         <h1 className="text-3xl font-bold">Your Job Applications</h1>
         <Link
           href="/jobs/new"
-          className="flex items-center gap-2 rounded bg-blue-500 px-4 py-2 font-semibold text-white transition-colors hover:bg-blue-400"
+          className="bg-primary-600 hover:bg-primary-500 flex items-center gap-2 rounded px-4 py-2 font-semibold text-white transition-colors"
         >
           <Plus size={20} />
           New Job
         </Link>
       </div>
-      {jobs.length === 0 ? (
-        <p>
-          No jobs yet.{" "}
-          <Link href="/jobs/new" className="text-blue-600 underline">
-            Add one
-          </Link>
-        </p>
-      ) : (
-        <div className="flex flex-col gap-6">
-          {jobs.map((j) => (
-            <JobCard
-              key={j._id}
-              job={j}
-              handleDelete={async () => {
-                api.delete(`/jobs/${j._id}`);
-                setJobs(jobs.filter((job) => job._id !== j._id));
-              }}
-            />
-          ))}
-        </div>
-      )}
+
+      <div className="flex flex-col gap-6">
+        {jobs.map((j) => (
+          <JobCard
+            key={j._id}
+            job={j}
+            handleDelete={async () => {
+              api.delete(`/jobs/${j._id}`);
+              setJobs(jobs.filter((job) => job._id !== j._id));
+            }}
+          />
+        ))}
+      </div>
     </div>
   );
 }

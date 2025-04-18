@@ -13,7 +13,7 @@ export const Header = () => {
   return (
     <>
       {!hideHeader && (
-        <header className="flex justify-between px-4 py-4">
+        <header className="flex justify-between bg-white px-4 py-4 shadow">
           <Image
             src={Logo}
             width={1024}

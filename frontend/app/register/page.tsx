@@ -9,7 +9,7 @@ interface RegisterForm {
 
 export default function Register() {
   return (
-    <div className="mx-auto mt-20 flex max-w-md flex-col gap-4 rounded border p-6 shadow">
+    <div className="shadow, mx-auto mt-20 flex max-w-md flex-col gap-4 rounded border bg-white p-6">
       <h1 className="text-2xl font-bold">Register</h1>
 
       <RegisterForm />

@@ -10,5 +10,12 @@ export const Logout = () => {
     auth?.logout();
   };
 
-  return <Button onClick={handleLogout}>Logout</Button>;
+  return (
+    <Button
+      onClick={handleLogout}
+      className="bg-primary-600 hover:bg-primary-500"
+    >
+      Logout
+    </Button>
+  );
 };
