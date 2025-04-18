@@ -1,7 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import { Logout } from "../ui/logout";
 import { usePathname } from "next/navigation";
+import Logo from "./logo.png";
 
 export const Header = () => {
   const pathname = usePathname();
@@ -12,7 +14,13 @@ export const Header = () => {
     <>
       {!hideHeader && (
         <header className="flex justify-between px-4 py-4">
-          <div className="h-8 w-8 rounded-full bg-blue-500" />
+          <Image
+            src={Logo}
+            width={1024}
+            height={1024}
+            alt="Logo"
+            className="h-8 w-8"
+          />
           <Logout />
         </header>
       )}
