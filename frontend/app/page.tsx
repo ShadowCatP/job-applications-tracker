@@ -27,7 +27,7 @@ export default function Home() {
     if (auth?.token) fetchJobs();
 
     if (!auth?.token && !auth?.loading) router.push("/login");
-  }, [auth?.token]);
+  }, [auth?.token, auth?.loading, router]);
 
   return (
     <div className="mx-auto mt-10 flex max-w-4xl flex-col gap-8 p-6">

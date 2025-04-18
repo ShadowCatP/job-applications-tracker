@@ -2,14 +2,7 @@
 
 import { getRelativeDate } from "@/lib/utils";
 import { Job } from "@/types/Job";
-import { formatDate } from "date-fns";
-import {
-  Calendar,
-  ChevronDown,
-  ChevronUp,
-  Clock,
-  FileText,
-} from "lucide-react";
+import { Calendar, ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
 import { JobCardHeader } from "./JobCardHeader";
 import { JobCardDetails } from "./JobCardDetails";
@@ -21,8 +14,9 @@ interface JobCardProps {
 }
 
 export const JobCard = ({ job, handleDelete }: JobCardProps) => {
-  if (!job) return null;
   const [isExpanded, setIsExpanded] = useState(false);
+
+  if (!job) return null;
 
   const closestInterview = job.interviewDates
     ?.map(({ date }) => new Date(date))
