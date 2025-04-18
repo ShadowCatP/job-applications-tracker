@@ -7,6 +7,7 @@ import { api } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { Job } from "@/types/Job";
 import { JobCard } from "@/components/Cards/JobCard/JobCard";
+import { Plus } from "lucide-react";
 
 export default function Home() {
   const auth = useAuth();
@@ -29,8 +30,17 @@ export default function Home() {
   }, [auth?.token]);
 
   return (
-    <div className="mx-auto mt-10 max-w-4xl p-6">
-      <h1 className="mb-4 text-3xl font-bold">Your Job Applications</h1>
+    <div className="mx-auto mt-10 flex max-w-4xl flex-col gap-8 p-6">
+      <div className="flex items-center justify-between">
+        <h1 className="text-3xl font-bold">Your Job Applications</h1>
+        <Link
+          href="/jobs/new"
+          className="flex items-center gap-2 rounded bg-blue-500 px-4 py-2 font-semibold text-white transition-colors hover:bg-blue-400"
+        >
+          <Plus size={20} />
+          New Job
+        </Link>
+      </div>
       {jobs.length === 0 ? (
         <p>
           No jobs yet.{" "}
@@ -50,11 +60,6 @@ export default function Home() {
               }}
             />
           ))}
-          <p>
-            <Link href="/jobs/new" className="text-blue-600 underline">
-              Add one
-            </Link>
-          </p>
         </div>
       )}
     </div>
