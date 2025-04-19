@@ -25,6 +25,7 @@ export const RegisterForm = () => {
       const res = await api.post("/auth/register", data);
       auth?.login(res.data.token);
       router.push("/");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setError(err.response.data.msg || "Registration Failed");
     }

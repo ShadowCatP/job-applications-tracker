@@ -24,6 +24,7 @@ export const LoginForm = () => {
       const res = await api.post("/auth/login", data);
       auth?.login(res.data.token);
       router.push("/");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setError(err.response.data.msg || "Login Failed");
     }

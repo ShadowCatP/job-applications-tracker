@@ -6,10 +6,10 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const parseJobDates = (job: any): Job => ({
+export const parseJobDates = (job: Job): Job => ({
   ...job,
   dateApplied: job.dateApplied ? new Date(job.dateApplied) : undefined,
-  interviewDates: job.interviewDates?.map((i: any) => ({
+  interviewDates: job.interviewDates?.map((i: { date: Date }) => ({
     date: new Date(i.date),
   })),
 });

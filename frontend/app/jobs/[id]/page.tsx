@@ -19,7 +19,7 @@ export default function EditJobPage() {
     if (!auth?.loading && !auth?.token) {
       router.push("/login");
     }
-  }, [auth?.token]);
+  }, [auth?.token, router, auth?.loading]);
 
   useEffect(() => {
     const fetchJob = async () => {
@@ -35,12 +35,12 @@ export default function EditJobPage() {
     };
 
     fetchJob();
-  }, []);
+  }, [id]);
 
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div className="mx-auto mt-10 max-w-xl rounded border p-6 shadow">
+    <div className="mx-auto mt-10 max-w-xl rounded border bg-white p-6 shadow">
       <h1 className="mb-6 text-2xl font-bold">Edit Job</h1>
       <JobForm job={job} />
     </div>

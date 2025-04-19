@@ -13,7 +13,7 @@ export default function NewJobPage() {
     if (!auth?.loading && !auth?.token) {
       router.push("/login");
     }
-  }, [auth?.token]);
+  }, [auth?.token, auth?.loading, router]);
 
   return (
     <div className="mx-auto mt-10 max-w-xl rounded border bg-white p-6 shadow">
