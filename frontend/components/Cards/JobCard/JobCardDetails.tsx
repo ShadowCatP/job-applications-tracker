@@ -17,7 +17,7 @@ export const JobCardDetails = ({ job }: JobCardDetailsProps) => {
           </div>
           <ul>
             {job.interviewDates.map((interview, index) => (
-              <li key={`${interview}-${index}`} className="ml-6 list-disc">
+              <li key={`${interview}-${index}`} className="ml-5 list-disc">
                 {formatDate(interview.date, "dd MMM yyyy")}
               </li>
             ))}
