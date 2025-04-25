@@ -1,4 +1,4 @@
-version: '3.9'
+version: "3.9"
 
 services:
   mongo:
@@ -16,8 +16,6 @@ services:
     restart: always
     ports:
       - "5000:5000"
-    environment:
-      - MONGO_URI=mongodb://mongo:27017/jobApp
     depends_on:
       - mongo
 
@@ -29,9 +27,6 @@ services:
       - "3000:3000"
     depends_on:
       - backend
-    environment:
-      - NEXT_PUBLIC_API_URL=http://backend:5000
 
 volumes:
   mongo-data:
-
