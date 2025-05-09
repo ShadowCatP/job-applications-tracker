@@ -7,7 +7,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Job } from "@/types/Job";
-import { Edit, MoreVertical, Trash2 } from "lucide-react";
+import { Edit, MoreHorizontal, Trash2 } from "lucide-react";
 import Link from "next/link";
 
 interface JobCardHeaderProps {
@@ -19,13 +19,13 @@ export const JobCardHeader = ({ job, handleDelete }: JobCardHeaderProps) => {
   return (
     <div className="flex items-start justify-between">
       <div>
-        <h3 className="text-3xl font-semibold">{job.position}</h3>
-        <p className="text-sm font-medium text-neutral-600">{job.company}</p>
+        <h2 className="text-3xl font-semibold">{job.position}</h2>
+        <p className="text-lg font-medium text-neutral-500">{job.company}</p>
       </div>
 
       <DropdownMenu>
         <DropdownMenuTrigger>
-          <MoreVertical />
+          <MoreHorizontal />
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-32">
           <DropdownMenuItem>
