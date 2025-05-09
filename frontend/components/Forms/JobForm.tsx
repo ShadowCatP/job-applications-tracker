@@ -23,7 +23,7 @@ interface JobFormProps {
 
 type JobFormValues = Omit<Job, "dateApplied" | "interviewDates"> & {
   dateApplied?: string;
-  interviewDates?: { date: string }[];
+  interviewDates?: { date?: string }[];
 };
 
 export const JobForm = ({ job }: JobFormProps) => {
@@ -110,7 +110,7 @@ export const JobForm = ({ job }: JobFormProps) => {
         defaultValue={job ? job.dateApplied : undefined}
         onChange={(date) => {
           if (date) {
-            setValue("dateApplied", date.toISOString());
+            setValue("dateApplied", formatDate(date));
           }
         }}
       />
@@ -134,7 +134,7 @@ export const JobForm = ({ job }: JobFormProps) => {
               defaultValue={f.date ? new Date(f.date) : undefined}
               onChange={(date) => {
                 if (date) {
-                  setValue(`interviewDates.${i}.date`, date.toISOString());
+                  setValue(`interviewDates.${i}.date`, formatDate(date));
                 }
               }}
             />
