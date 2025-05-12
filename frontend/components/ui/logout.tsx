@@ -2,6 +2,7 @@
 
 import { useAuth } from "@/context/AuthContext";
 import { Button } from "./button";
+import { LogOut } from "lucide-react";
 
 export const Logout = () => {
   const auth = useAuth();
@@ -15,7 +16,8 @@ export const Logout = () => {
       onClick={handleLogout}
       className="bg-primary-600 hover:bg-primary-500"
     >
-      Logout
+      <LogOut />
+      <span>Logout</span>
     </Button>
   );
 };
