@@ -4,6 +4,7 @@ const JobSchema = new mongoose.Schema(
   {
     company: String,
     position: String,
+    jobLink: String,
     status: {
       type: String,
       enum: ["applied", "interview", "declined", "offer"],

@@ -19,6 +19,7 @@ exports.createJob = async (req, res) => {
   const {
     company,
     position,
+    jobLink,
     status,
     jobType,
     dateApplied,
@@ -34,6 +35,7 @@ exports.createJob = async (req, res) => {
   const job = await Job.create({
     company,
     position,
+    jobLink,
     status,
     jobType,
     dateApplied: dateApplied ? new Date(dateApplied) : undefined,
