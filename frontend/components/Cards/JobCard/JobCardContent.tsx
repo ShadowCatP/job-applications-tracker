@@ -2,7 +2,7 @@
 
 import { getRelativeDate } from "@/lib/utils";
 import { Job } from "@/types/Job";
-import { ChevronDown, ChevronUp, Clock } from "lucide-react";
+import { ChevronDown, ChevronUp, Clock, Link } from "lucide-react";
 import { useState } from "react";
 import { StatusBar } from "./StatusBar";
 
@@ -20,6 +20,19 @@ export const JobCardContent = ({ job }: JobCardContentProps) => {
 
   return (
     <div className="flex flex-col gap-4">
+      {job.jobLink && (
+        <span className="flex items-center gap-2">
+          <Link size={16} />
+          <a
+            href={job.jobLink}
+            className="underline transition-colors hover:text-teal-600"
+            target="_blank"
+          >
+            {job.jobLink}
+          </a>
+        </span>
+      )}
+
       {nextInterviewDate && (
         <div className="flex gap-2">
           <Clock />
@@ -36,7 +49,7 @@ export const JobCardContent = ({ job }: JobCardContentProps) => {
 
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="flex w-full cursor-pointer"
+        className="flex w-full cursor-pointer transition-transform"
       >
         {isExpanded ? (
           <>
