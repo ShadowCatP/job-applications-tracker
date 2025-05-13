@@ -154,7 +154,7 @@ export const JobForm = ({ job }: JobFormProps) => {
         placeholder="Notes (e.g. recruiter name, feedback, etc.)"
       />
 
-      <Button type="submit" className="bg-primary-600 hover:primary-500">
+      <Button type="submit" className="bg-primary-600 hover:bg-primary-500">
         Submit
       </Button>
     </form>
