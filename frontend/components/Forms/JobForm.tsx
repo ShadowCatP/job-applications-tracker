@@ -75,7 +75,7 @@ export const JobForm = ({ job }: JobFormProps) => {
           setValue("status", value)
         }
       >
-        <SelectTrigger className="w-[240px]">
+        <SelectTrigger className="w-full">
           <SelectValue placeholder="Select a status" />
         </SelectTrigger>
         <SelectContent {...register("status")}>
@@ -93,7 +93,7 @@ export const JobForm = ({ job }: JobFormProps) => {
           setValue("jobType", value)
         }
       >
-        <SelectTrigger className="w-[240px]">
+        <SelectTrigger className="w-full">
           <SelectValue placeholder="Select a type" />
         </SelectTrigger>
         <SelectContent>

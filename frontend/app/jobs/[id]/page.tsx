@@ -40,9 +40,11 @@ export default function EditJobPage() {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div className="mx-auto mt-10 max-w-xl rounded border bg-white p-6 shadow">
-      <h1 className="mb-6 text-2xl font-bold">Edit Job</h1>
-      <JobForm job={job} />
+    <div className="mx-2 mt-10 flex justify-center">
+      <section className="flex w-full max-w-xl flex-col rounded border bg-white p-6 shadow">
+        <h1 className="mb-6 text-2xl font-bold">Edit Job</h1>
+        <JobForm job={job} />
+      </section>
     </div>
   );
 }
