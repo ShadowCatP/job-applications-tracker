@@ -13,6 +13,7 @@ export interface Job {
   _id: string;
   company: string;
   position: string;
+  jobLink: string;
   status: Status;
   jobType: JobType;
   dateApplied?: Date;

@@ -32,6 +32,7 @@ export const JobForm = ({ job }: JobFormProps) => {
       ? {
           company: job.company,
           position: job.position,
+          jobLink: job.jobLink,
           status: job.status,
           jobType: job.jobType,
           dateApplied: formatDate(job.dateApplied),
@@ -68,6 +69,8 @@ export const JobForm = ({ job }: JobFormProps) => {
         {...register("position", { required: true })}
         placeholder="Position"
       />
+
+      <Input {...register("jobLink")} placeholder="Job Link" />
 
       <Select
         defaultValue={job ? job.status : undefined}
