@@ -14,7 +14,7 @@ export const Logout = () => {
   return (
     <Button
       onClick={handleLogout}
-      className="bg-primary-600 hover:bg-primary-500"
+      className="bg-primary-600 hover:bg-primary-500 text-neutral-100 select-none"
     >
       <LogOut />
       <span>Logout</span>

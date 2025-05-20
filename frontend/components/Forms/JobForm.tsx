@@ -81,7 +81,10 @@ export const JobForm = ({ job }: JobFormProps) => {
         <SelectTrigger className="w-full">
           <SelectValue placeholder="Select a status" />
         </SelectTrigger>
-        <SelectContent {...register("status")}>
+        <SelectContent
+          {...register("status")}
+          className="bg-white dark:bg-neutral-700"
+        >
           {statusOptions.map((status) => (
             <SelectItem key={status} value={status}>
               {status.charAt(0).toUpperCase() + status.slice(1)}
@@ -99,7 +102,7 @@ export const JobForm = ({ job }: JobFormProps) => {
         <SelectTrigger className="w-full">
           <SelectValue placeholder="Select a type" />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className="bg-white dark:bg-neutral-700">
           {jobTypeOptions.map((type) => (
             <SelectItem key={type} value={type}>
               {type.replace("-", " ").replace(/^\w/, (c) => c.toUpperCase())}
@@ -124,7 +127,7 @@ export const JobForm = ({ job }: JobFormProps) => {
           <Button
             type="button"
             onClick={() => append({ date: "" })}
-            className="bg-primary-600 hover:bg-primary-500"
+            className="bg-primary-600 hover:bg-primary-500 text-neutral-100"
           >
             Add another date
           </Button>
@@ -143,7 +146,7 @@ export const JobForm = ({ job }: JobFormProps) => {
             />
             <Button
               type="button"
-              className="bg-red-400 hover:bg-red-300"
+              className="bg-red-400 text-neutral-100 hover:bg-red-300"
               onClick={() => remove(i)}
             >
               Remove
@@ -157,7 +160,10 @@ export const JobForm = ({ job }: JobFormProps) => {
         placeholder="Notes (e.g. recruiter name, feedback, etc.)"
       />
 
-      <Button type="submit" className="bg-primary-600 hover:bg-primary-500">
+      <Button
+        type="submit"
+        className="bg-primary-600 hover:bg-primary-500 text-neutral-100"
+      >
         Submit
       </Button>
     </form>

@@ -32,7 +32,7 @@ export default function Home() {
   return (
     <div className="mx-auto mt-10 flex max-w-4xl flex-col gap-8 p-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Your Job Applications</h1>
+        <h2 className="text-3xl font-bold">Your Job Applications</h2>
         <Link
           href="/jobs/new"
           className="bg-primary-600 hover:bg-primary-500 flex items-center gap-2 rounded px-4 py-2 font-semibold text-white transition-colors"

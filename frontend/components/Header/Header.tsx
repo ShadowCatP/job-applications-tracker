@@ -1,10 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { Logout } from "../ui/logout";
 import { usePathname } from "next/navigation";
-import Logo from "./logo.png";
 import Link from "next/link";
+import { ThemeButtonSwitch } from "../ui/theme-button-switch";
 
 export const Header = () => {
   const pathname = usePathname();
@@ -14,17 +13,14 @@ export const Header = () => {
   return (
     <>
       {!hideHeader && (
-        <header className="flex justify-between bg-white px-4 py-4 shadow">
+        <header className="flex items-center justify-between px-4 py-4 shadow transition-colors dark:bg-neutral-900 dark:text-neutral-100 dark:shadow-neutral-400">
           <Link href={"/"}>
-            <Image
-              src={Logo}
-              width={1024}
-              height={1024}
-              alt="Logo"
-              className="h-8 w-8"
-            />
+            <h1 className="text-2xl font-bold">JT</h1>
           </Link>
-          <Logout />
+          <div className="flex items-center gap-4">
+            <ThemeButtonSwitch />
+            <Logout />
+          </div>
         </header>
       )}
     </>

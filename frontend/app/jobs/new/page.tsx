@@ -17,7 +17,7 @@ export default function NewJobPage() {
 
   return (
     <div className="mx-2 mt-10 flex justify-center">
-      <section className="flex w-full max-w-xl flex-col rounded border bg-white p-6 shadow">
+      <section className="flex w-full max-w-xl flex-col rounded border bg-white p-6 shadow transition-colors dark:border-neutral-700 dark:bg-neutral-800">
         <h1 className="mb-6 text-2xl font-bold">Add New Job</h1>
         <JobForm />
       </section>

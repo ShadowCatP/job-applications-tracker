@@ -27,7 +27,10 @@ export const JobCardHeader = ({ job, handleDelete }: JobCardHeaderProps) => {
         <DropdownMenuTrigger>
           <MoreHorizontal />
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-32">
+        <DropdownMenuContent
+          align="end"
+          className="w-32 dark:border-neutral-600 dark:bg-neutral-700"
+        >
           <DropdownMenuItem>
             <Link
               href={`/jobs/${job._id}`}
@@ -42,9 +45,9 @@ export const JobCardHeader = ({ job, handleDelete }: JobCardHeaderProps) => {
           <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
             <ConfirmButton
               onClick={handleDelete}
-              className="w-full justify-start bg-transparent text-red-800 shadow-none hover:bg-transparent"
+              className="w-full justify-start bg-transparent text-red-800 shadow-none hover:bg-transparent dark:text-red-500"
             >
-              <Trash2 className="text-red-800" size={20} />
+              <Trash2 className="text-red-800 dark:text-red-500" size={20} />
               Delete
             </ConfirmButton>
           </DropdownMenuItem>

@@ -10,7 +10,7 @@ interface LoginForm {
 
 export default function Login() {
   return (
-    <div className="mx-auto mt-20 flex max-w-md flex-col gap-4 rounded border bg-white p-6 shadow">
+    <div className="mx-auto mt-20 flex max-w-md flex-col gap-4 rounded border bg-white p-6 shadow dark:border-neutral-700 dark:bg-neutral-800">
       <h1 className="text-2xl font-bold">Login</h1>
 
       <LoginForm />
