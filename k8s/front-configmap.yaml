@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: job-appl-front-confmap
+data: # change to backend service later (and even later helm placeholders)
+  NEXT_PUBLIC_API_BASE_URL: /api
+
+  config.json: |
+    {
+      "apiBaseUrl": "/api"
+    }
+

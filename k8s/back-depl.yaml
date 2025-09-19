@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: job-appl-back-depl
+spec:
+  selector:
+    matchLabels:
+      app: job-appl-back
+  template:
+    metadata:
+      labels:
+        app: job-appl-back
+    spec:
+      containers:
+      - name: job-application-back-cont
+        image: mikalaytsepl/job-applications-tracker-backend:latest
+
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
+          limits:
+            memory: "1Gi"
+            cpu: "1"
+
+        ports:
+        - containerPort: 5000
+
+        envFrom:
+        - configMapRef:
+            name: job-appl-back-confmap
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: job-appl-back-serv
+spec:
+  type: ClusterIP
+  selector:
+    app: job-appl-back
+  ports:
+  - port: 5000
+    targetPort: 5000
+

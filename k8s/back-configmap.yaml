@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: job-appl-back-confmap
+data:
+  PORT: "5000"
+
+  MONGO_URI: mongodb://job-appl-db-serv:27017/mydb
+
+  # that's a bad practice but i will remake it into helm anyway so don't care
+  JWT_SECRET: OfwKMXCMLfn89I92hx0xs1BV/at+hJvxalS9K5Y8wP3L7cZfKmUxv2weumM4/S/NJuWRb4AIlb6eu+raPA9ePA==

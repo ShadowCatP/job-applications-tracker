@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: job-appl-front-depl
+spec:
+  selector:
+    matchLabels:
+      app: job-appl-front
+  template:
+    metadata:
+      labels:
+        app: job-appl-front
+    spec:
+      containers:
+      - name: job-application-front-cont
+        image: mikalaytsepl/job-applications-tracker-frontend:latest
+
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "500m"
+          limits:
+            memory: "256Mi"
+            cpu: "1000m"
+        ports:
+        - containerPort: 3000
+      
+        env:
+          - name: NEXT_PUBLIC_API_BASE_URL
+            valueFrom:
+              configMapKeyRef:
+                name: job-appl-front-confmap
+                key: NEXT_PUBLIC_API_BASE_URL
+
+        volumeMounts:
+          - name: frontend-config
+            mountPath: /usr/share/nginx/html/config.json
+            subPath: config.json
+
+      volumes:
+        - name: frontend-config
+          configMap:
+            name: job-appl-front-confmap
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: job-appl-front-serv
+spec:
+  type: ClusterIP
+  selector:
+    app: job-appl-front
+  ports:
+  - port: 80
+    targetPort: 3000
