@@ -2,6 +2,18 @@ namespace:
   namespaceSeparation: true
   name: job-appl-namespace
 
+quota:
+  pods: "6"                       
+  services: "3"                 
+  secrets: "1"                     
+  configmaps: "1"                   
+  persistentvolumeclaims: "2"         
+  
+  requests.cpu: "3"                 
+  requests.memory: "4Gi"              
+  limits.cpu: "4"                     
+  limits.memory: "8Gi" 
+  
 autoscaling:
   enabled: false
 
