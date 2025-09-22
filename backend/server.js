@@ -17,6 +17,20 @@ app.use("/api/jobs", jobRoutes);
 
 app.get("/echo", (req, res) => res.send("Api is running..."));
 
+app.get('/healthz', (req, res) => {
+  res.status(200).send('OK');
+});
+
+// Readiness probe wich will check the db connection
+app.get('/ready', (req, res) => {
+  const state = mongoose.connection.readyState;
+  if (state === 1) {
+    res.status(200).send('OK');
+  } else {
+    res.status(503).send('Not Ready');
+  }
+});
+
 const PORT = process.env.PORT || 5000;
 
 mongoose

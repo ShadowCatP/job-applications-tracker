@@ -38,3 +38,22 @@ spec:
                 name: {{ .Values.back.name }}-confmap
             - secretRef:
                 name: {{ .Values.back.name }}-secret
+
+          # since backend is the slowest to get up i decided to add some probes
+          # which will check both for the cnnection to db and if back 
+          # is accessible overall 
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: {{ .Values.back.containerPort }}
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 2
+
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: {{ .Values.back.containerPort }}
+            initialDelaySeconds: 10
+            periodSeconds: 20
+            timeoutSeconds: 2
