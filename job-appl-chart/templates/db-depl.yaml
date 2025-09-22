@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.db.name }}-depl
+  labels:
+    app: {{ .Values.db.name }}
+
+  {{- if .Values.namespace.namespaceSeparation }}
+  namespace: {{.Values.namespace.name}}
+  {{- end}}
+
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.db.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.db.name }}
+    spec:
+      containers:
+        - name: {{ .Values.db.name }}-cont
+          image: {{ .Values.db.image }}
+          ports:
+            - containerPort: {{ .Values.db.containerPort }}
+          
+        {{- with .Values.db.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          
+          volumeMounts:
+            - name: mongo-storage
+              mountPath: {{ .Values.db.storage.mountPath }}
+      volumes:
+        - name: mongo-storage
+          persistentVolumeClaim:
+            claimName: {{ .Values.db.name }}-pvc

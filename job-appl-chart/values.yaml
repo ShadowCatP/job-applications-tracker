@@ -1,0 +1,89 @@
+namespace:
+  namespaceSeparation: true
+  name: job-appl-namespace
+
+autoscaling:
+  enabled: false
+
+front:
+  replicaCount: 1
+
+  name: job-appl-front
+  image: mikalaytsepl/job-applications-tracker-frontend:latest
+  cont_port: 3000
+  
+  resources:
+    requests:
+      memory: "128Mi"
+      cpu: "500m"
+    limits:
+      memory: "256Mi"
+      cpu: "1000m"
+  
+  apiBaseUrl: "/api"
+
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 3000
+
+back: 
+  replicaCount: 1
+
+  name: job-appl-back 
+
+  image: mikalaytsepl/job-applications-tracker-backend:latest
+  containerPort: 5000
+
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "500m"
+    limits:
+      memory: "1Gi"
+      cpu: "1"
+
+  service:
+    type: ClusterIP
+    port: 5000
+    targetPort: 5000
+
+  config:
+    PORT: "5000"
+    MONGO_URI: "mongodb://job-appl-db-serv:27017/mydb"
+
+  secret:
+    JWT_SECRET: "OfwKMXCMLfn89I92hx0xs1BV/at+hJvxalS9K5Y8wP3L7cZfKmUxv2weumM4/S/NJuWRb4AIlb6eu+raPA9ePA=="
+
+db:
+  name: job-appl-db
+  image: mongo:6
+  containerPort: 27017
+
+  resources:
+    requests:
+      memory: "128Mi"
+      cpu: "500m"
+    limits:
+      memory: "128Mi"
+      cpu: "500m"
+
+  storage:
+    accessMode: ReadWriteOnce
+    size: 5Gi
+    volumeMode: Filesystem
+    className: standard
+    mountPath: /data/db
+
+  service:
+    type: ClusterIP
+    port: 27017
+    targetPort: 27017
+
+ingr:
+  enabled: true
+  name: job-appl-ingress
+  hostname: test-nginx.local
+  type: Prefix
+  frontpath: "/"
+  backpath: "/api"
