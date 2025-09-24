@@ -1,3 +1,6 @@
+netpols:
+  enabled: true
+  
 namespace:
   namespaceSeparation: true
   name: job-appl-namespace
