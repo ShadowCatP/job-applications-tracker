@@ -1,0 +1,15 @@
+{{- if .Values.namespace.namespaceSeparation }}
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: {{ include "job-appl-chart.name" . }}-quota
+
+  namespace: {{.Values.namespace.name}}
+
+spec:
+  hard:
+    {{- with .Values.qouta }}
+        {{- toYaml . | nindent 4 }}
+    {{- end}}
+
+{{- end}}

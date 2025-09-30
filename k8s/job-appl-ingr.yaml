@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: job-appl-ingress
+  labels:
+    app.kubernetes.io/name: job-appl-ingress
+spec:
+  rules:
+  - host: test-nginx.local
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: job-appl-front-serv
+            port: 
+              number: 80
+      
+      - pathType: Prefix
+        path: "/api"
+        backend:
+          service:
+            name: job-appl-back-serv
+            port:
+              number: 5000

@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.back.name }}-depl
+  labels:
+    app: {{ .Values.back.name }}
+
+  {{- if .Values.namespace.namespaceSeparation }}
+  namespace: {{.Values.namespace.name}}
+  {{- end}}
+
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.front.replicaCount }}
+  {{- end }}
+
+  selector:
+    matchLabels:
+      app: {{ .Values.back.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.back.name }}
+    spec:
+      containers:
+        - name: {{ .Values.back.name }}-cont
+          image: {{ .Values.back.image }}
+          ports:
+            - containerPort: {{ .Values.back.containerPort }}
+          
+          {{- with .Values.front.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+
+          envFrom:
+            - configMapRef:
+                name: {{ .Values.back.name }}-confmap
+            - secretRef:
+                name: {{ .Values.back.name }}-secret
+
+          # since backend is the slowest to get up i decided to add some probes
+          # which will check both for the cnnection to db and if back 
+          # is accessible overall 
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: {{ .Values.back.containerPort }}
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 2
+
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: {{ .Values.back.containerPort }}
+            initialDelaySeconds: 10
+            periodSeconds: 20
+            timeoutSeconds: 2

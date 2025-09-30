@@ -12,6 +12,8 @@ services:
 
   backend:
     build: ./backend
+    env_file:
+      - ./backend/.env
     container_name: job-backend
     restart: always
     ports:
@@ -21,6 +23,8 @@ services:
 
   frontend:
     build: ./frontend
+    env_file:
+      - ./frontend/.env
     container_name: job-frontend
     restart: always
     ports:

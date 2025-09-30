@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{.Values.front.name}}-serv
+  labels:
+    app: {{.Values.front.name}}
+
+  {{- if .Values.namespace.namespaceSeparation }}
+  namespace: {{.Values.namespace.name}}
+  {{- end}}
+
+spec:
+  type: {{ .Values.front.service.type }}
+  selector:
+    app: {{.Values.front.name}}
+  ports:
+    - port: {{ .Values.front.service.port }}
+      targetPort: {{ .Values.front.service.targetPort }}

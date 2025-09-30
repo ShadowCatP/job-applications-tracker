@@ -1,0 +1,92 @@
+{{- if and .Values.netpols.enabled .Values.namespace.namespaceSeparation }}
+
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "job-appl-chart.name" . }}-{{ .Values.front.name }}-netpol
+  namespace: {{ .Values.namespace.name }}
+spec:
+  podSelector:
+    matchLabels:
+      app: {{ .Values.front.name }}
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app: {{ .Values.back.name }}
+      ports:
+        - protocol: TCP
+          port: {{ .Values.back.service.port }}
+    - to:
+        - namespaceSelector: {} # allow DNS
+      ports:
+        - protocol: UDP
+          port: 53
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "job-appl-chart.name" . }}-{{ .Values.back.name }}-netpol
+  namespace: {{ .Values.namespace.name }}
+spec:
+  podSelector:
+    matchLabels:
+      app: {{ .Values.back.name }}
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: {{ .Values.front.name }}
+      ports:
+        - protocol: TCP
+          port: {{ .Values.back.service.port }}
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app: {{ .Values.db.name }}
+      ports:
+        - protocol: TCP
+          port: {{ .Values.db.service.port }}
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+      ports:
+        - protocol: UDP
+          port: 53
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "job-appl-chart.name" . }}-{{ .Values.db.name }}-netpol
+  namespace: {{ .Values.namespace.name }}
+spec:
+  podSelector:
+    matchLabels:
+      app: {{ .Values.db.name }}
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: {{ .Values.back.name }}
+      ports:
+        - protocol: TCP
+          port: {{ .Values.db.service.port }}
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+      ports:
+        - protocol: UDP
+          port: 53
+{{- end }}
